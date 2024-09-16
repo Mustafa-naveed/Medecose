@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+{% comment %} Slider {% endcomment %}
+<div class="container-fluid">
+  <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active ">
+        <img src="https://thehealthcareinsights.com/wp-content/uploads/2020/12/Essential-medical-devices-that-should-be-available-at-your-home.jpg" class="d-block w-100 sliderImage" alt="...">
+      </div>
+      {% for s in slider%}
+      <div class="carousel-item">
+        <img src={{s.banner.url}} alt="" class='w-100 sliderImage'>
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <div class="prev-btn">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </div>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <div class="next-btn">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </div>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div> 
+</div>
+{% comment %} Slider {% endcomment %}
+ <div class="bg-light rounded container-full p-3 my-5">
+     <div class="row my-5">
+      {% for p in product %}
+      <div class="col-3 my-5">
+          <div class="border card-hover">
+              <a href="{% url 'product' p.id %}" class=''>
+                  <img src="{{ p.banner.url }}" class='product-img' alt="">
+              </a>
+              <div class="text-body my-3">
+                  <a href="{% url 'product' p.id %}" class='text-dark'>
+                      <h4 class='text-center'>{{ p.title }}</h4>
+                  </a>
+                  <h6 class='text-center'>pkr: {{ p.price }}</h6>
+              </div>
+          </div>
+      </div>
+  {% endfor %}
+     </div>
+ </div>
+{% endblock body %}

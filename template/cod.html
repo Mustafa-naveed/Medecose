@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container-fluid text-center my-5 p-5">
+    <div class="row my-5">
+        <div class="col-4"></div>
+        <div class="col-8">
+            <div class="h1">Cash On Delivery</div>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-4">
+            <div class="d-flex justify-content-center">
+                <div class="bg-white rounded p-5">
+                    {% if cart_items %}
+                        <h2 class''>Your Cart Items</h2>
+                        <ul>
+                            {% for product, quantity in cart_items %}
+                                <div class="mt-3">
+                                    {{ product.title }} - {{ product.price }} x {{ quantity }}
+                                </div>
+                            {% endfor %}
+
+                    {% else %}
+                    <p>Your cart is empty.</p>
+                    {% endif %}
+                    </ul>
+                    <h2>Total: {{ total_price }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <form action="{% url 'confirm_order' %}" method="post" class='d-flex justify-content-center'>
+                {% csrf_token %}
+                <div class="d-flex flex-column w-50">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="full_name" class="form-control" id="name" placeholder="Enter Your Full Name" required>
+                        <label for="name">Enter Your Full Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="tel" name="phone_number" class="form-control" id="number" placeholder="Enter Your Phone Number" required>
+                        <label for="number">Enter Your Phone Number</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea name="address" class="form-control" id="text" placeholder="Enter Your Full Address" required></textarea>
+                        <label for="text">Enter Your Full Address</label>
+                    </div>
+                    <button type="submit" class='btn btn-primary mb-3'>Confirm Order</button>        
+                </div>
+            </form>
+            <a href="/" class='btn btn-outline-primary mb-5'>Continue Shopping</a>
+        </div>  
+    </div>
+</div>
+{% endblock body %}
+
