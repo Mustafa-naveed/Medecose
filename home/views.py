@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
-from .models import Product,Logo,Slider
-from .models import Product, Order, OrderItem
+from django.db.models import Q
+from .models import Product,Logo,Slider,Order,OrderItem
 from django.views.decorators.http import require_POST
 
 # Create your views here.
@@ -139,3 +139,15 @@ def confirm_order(request):
     request.session['cart'] = {}
 
     return render(request, 'order_confirmed.html')
+
+def search_view(request):
+    query = request.GET.get('q')  # Get the search query from the request
+    results = []
+
+    if query:
+        # Search for products where title or description contains the query
+        results = Product.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+    return render(request, 'search_results.html', {'query': query, 'results': results})

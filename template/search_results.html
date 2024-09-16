@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container my-5">
+<h2 class='mb-5'>Search Results for "{{ query }}":</h2>
+
+{% if results %}
+    <div class="container bg-white p-4 rounded my-4">
+    <ul>
+    {% for product in results %}
+        <li>
+            <a href="{% url 'product' product.id %}">
+                {{ product.title }} - pkr {{ product.price }}
+            </a>
+            <p>{{ product.description }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No products found.</p>
+{% endif %}
+</div>
+</div>
+{% endblock body %}

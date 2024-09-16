@@ -32,8 +32,8 @@
                     </div> {% endcomment %}
                 </div>
                 <div class="right-side d-flex gap-4 align-items-center">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" action="{% url 'search' %}">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search for products..." value="{{ request.GET.q }}">
                     <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
                 <a href='/cart' class="cart text-light">
