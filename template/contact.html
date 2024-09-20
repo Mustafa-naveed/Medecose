@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
     <h2 class="my-5">Contact Us</h2>
-    <form method="POST" action="" class="d-flex flex-column gap-3">
+    <form method="POST" action="" class="d-flex flex-column gap-3 my-5">
         {% csrf_token %}
             {{ form.name.label }}
             {{ form.name }}
