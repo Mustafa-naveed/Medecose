@@ -2,12 +2,54 @@
 {% load static %}
 {% block body %}
 <div class="w-100">
-<main class="form-signin text-center w-25 m-auto mt-5" >
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
+  <main class="form-signin w-50 m-auto mt-5 p-5 bg-white card my-5">
+    <h1 class="my-3 text-center">Sign Up</h1>
+    
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div class="form-fields d-flex flex-column gap-3 p-5 mx-5">
+        <!-- Username Field -->
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div class="text-danger">{{ form.username.errors }}</div>
+        {% endif %}
+
+        <!-- Email Field -->
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="text-danger">{{ form.email.errors }}</div>
+        {% endif %}
+
+        <!-- Address Field -->
+        {{ form.address.label_tag }}
+        {{ form.address }}
+        {% if form.address.errors %}
+          <div class="text-danger">{{ form.address.errors }}</div>
+        {% endif %}
+
+        <!-- Phone Number Field -->
+        {{ form.phone_number.label_tag }}
+        {{ form.phone_number }}
+        {% if form.phone_number.errors %}
+          <div class="text-danger">{{ form.phone_number.errors }}</div>
+        {% endif %}
+
+        <!-- Password Field -->
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div class="text-danger">{{ form.password.errors }}</div>
+        {% endif %}
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="w-100 text-center">
+        <button type="submit" class="btn btn-primary w-25 py-2 my-5">Sign Up</button>
+      </div>
+    </form>
+    
   </main>
 </div>
 {% endblock body %}

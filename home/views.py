@@ -115,38 +115,6 @@ def confirm_order(request):
     # Return an order confirmation page or redirect to user orders page
     return render(request, 'order_confirmed.html', {'order': order})
 
-    # Retrieve cart from session
-    cart = request.session.get('cart', {})
-
-    if not cart:
-        return redirect('cart')  # Redirect to the cart if the cart is empty
-
-    # Retrieve form data
-    full_name = request.POST.get('full_name')
-    phone_number = request.POST.get('phone_number')
-    address = request.POST.get('address')
-
-    # Create an Order entry with the logged-in user
-    order = Order.objects.create(
-        full_name=full_name,
-        phone_number=phone_number,
-        address=address,
-        user=request.user  # Associate the order with the logged-in user
-    )
-
-    # Create OrderItems for each product in the cart
-    for product_id, quantity in cart.items():
-        product = Product.objects.get(id=product_id)
-        OrderItem.objects.create(
-            order=order,
-            product=product,
-            quantity=quantity
-        )
-
-    # Clear the cart
-    request.session['cart'] = {}
-
-    return render(request, 'order_confirmed.html')
 # Search view
 def search_view(request):
     query = request.GET.get('q')
@@ -171,12 +139,12 @@ def register(request):
                 address=form.cleaned_data['address']
             )
 
-            # Log the user in
+            # Log the user in after registration
             login(request, user)
             return redirect('home')
     else:
         form = UserRegistrationForm()
-    
+
     return render(request, 'register.html', {'form': form})
 
 # User orders view - show only logged-in user's orders
