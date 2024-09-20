@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+    <h2 class="my-5">Orders Record</h2>
+    {% if orders %}
+        <table class="table table-striped table-dark mb-5 table-hover">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    {% for item in order.items.all %}
+                    <tr>
+                        {% if forloop.first %}
+                        <!-- Merge cells for Order ID and Date on the first item -->
+                        <td rowspan="{{ order.items.count }}">{{ order.id }}</td>
+                        <td rowspan="{{ order.items.count }}">{{ order.created_at }}</td>
+                        {% endif %}
+                        <td>{{ item.product.title }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+    <p>You have no orders.</p>
+    {% endif %}
+</div>
+{% endblock %}
