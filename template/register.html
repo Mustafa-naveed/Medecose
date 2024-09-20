@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %}
+<div class="w-100">
+<main class="form-signin text-center w-25 m-auto mt-5" >
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+  </main>
+</div>
+{% endblock body %}

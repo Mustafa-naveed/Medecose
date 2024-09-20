@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>My Orders</h2>
+    {% if orders %}
+        <ul>
+        {% for order in orders %}
+            <li>
+                <strong>Order ID:</strong> {{ order.id }}<br>
+                <strong>Date:</strong> {{ order.created_at }}<br>
+                <strong>Items:</strong>
+                <ul>
+                    {% for item in order.items.all %}
+                        <li>
+                            <strong>Product:</strong> {{ item.product.title }}<br>
+                            <strong>Quantity:</strong> {{ item.quantity }}<br>
+                            <strong>Price:</strong> {{ item.product.price }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no orders.</p>
+    {% endif %}
+</div>
+{% endblock %}

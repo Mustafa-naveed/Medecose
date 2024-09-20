@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Slider(models.Model):
@@ -24,22 +25,30 @@ class Product(models.Model):
 class Logo(models.Model):
     logo= models.ImageField( upload_to='logo', height_field=None, width_field=None, max_length=None)
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=20)
+    address = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Each order is linked to a user
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
     address = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically sets the timestamp when order is created
+
     def __str__(self):
-        return self.full_name
-    
+        return f"Order {self.id} by {self.user.username}"
+
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)  # Each order has multiple order items
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Each item is linked to a product
     quantity = models.PositiveIntegerField()
-    
 
+    def __str__(self):
+        return f"{self.quantity} x {self.product.title}"
 
-    class Meta:
-        verbose_name = 'Order Item'
-        verbose_name_plural = 'Order Items'
