@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+    <h2 class="my-5">Contact Us</h2>
+    <form method="POST" action="" class="d-flex flex-column gap-3">
+        {% csrf_token %}
+            {{ form.name.label }}
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="text-danger">{{ form.name.errors }}</div>
+            {% endif %}
+            {{ form.email.label }}
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="text-danger">{{ form.email.errors }}</div>
+            {% endif %}
+            {{ form.message.label }}
+            {{ form.message }}
+            {% if form.message.errors %}
+            <div class="text-danger">{{ form.message.errors }}</div>
+            {% endif %}
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}

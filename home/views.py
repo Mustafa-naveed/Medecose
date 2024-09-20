@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from .forms import UserRegistrationForm
+from .forms import ContactForm
 from .models import Profile
 from django.http import HttpResponse
 from django.db.models import Q
@@ -19,6 +20,20 @@ def home(request):
         'product': product,
         'logo': logo,
     })
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save to the database
+            return redirect('success')  # Redirect to a success page or home
+    else:
+        form = ContactForm()
+    
+    return render(request, 'contact.html', {'form': form})
+
+def success(request):
+    return render(request, 'success.html')
 
 # Product detail view
 def product(request, post_id):

@@ -28,7 +28,7 @@
                         <a href="{% url 'home' %}" class="nav-link">Home</a>
                     </div>
                     <div class="nav-item">
-                        <a href="#" class="nav-link">Contact Us</a>
+                        <a href="{% url 'contact' %}" class="nav-link">Contact Us</a>
                     </div>
                     <!-- Display based on user login status -->
                     {% if user.is_authenticated %}

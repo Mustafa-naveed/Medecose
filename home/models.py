@@ -6,6 +6,15 @@ from django.contrib.auth.models import User
 class Slider(models.Model):
     banner = models.ImageField(upload_to='Media', height_field=None, width_field=None, max_length=None)
 
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     banner = models.ImageField(upload_to='Media', height_field=None, width_field=None, max_length=None)
     title = models.CharField(max_length=500)
