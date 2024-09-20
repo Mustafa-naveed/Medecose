@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
+# from django.contrib.auth.decorators import user_passes_test
+# from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from .forms import UserRegistrationForm
@@ -173,3 +175,9 @@ def user_orders(request):
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'  # Specify the template for the login page
+
+
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_orders(request):
+#     orders = Order.objects.all()  # Get all orders
+#     return render(request, 'admin_orders.html', {'orders': orders})

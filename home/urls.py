@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import CustomLoginView
 from . import views
+# from .views import admin_orders
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -8,6 +9,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('success/', views.success, name='success'),
     path('orders/', views.user_orders, name='user_orders'),
+    # path('admin/orders/', admin_orders, name='admin_orders'),
     path('product/<int:post_id>/', views.product, name='product'),
     path('cart/', views.cart, name='cart'),
     path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
